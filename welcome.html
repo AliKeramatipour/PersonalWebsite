@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script>
+		const query = window.location.search.substring(1)
+		const token = query.split('token=')[1]
+		fetch('https://api.github.com/user',
+			{
+				headers: {
+					Authorization: 'token ' + token
+				}
+			})
+			.then(res => res.json())
+			.then(res => {
+				var str = document.getElementById("hello").innerHTML; 
+				var rep = str.replace("USERNAME", res.name);
+				document.getElementById("hello").innerHTML = rep;
+
+				var str = document.getElementById("followers").innerHTML; 
+				var rep = str.replace("XX", res.followers);
+				document.getElementById("followers").innerHTML = rep;
+
+				var str = document.getElementById("following").innerHTML; 
+				var rep = str.replace("YY", res.following);
+				document.getElementById("following").innerHTML = rep;
+			})
+	</script>
+</head>
+<body>
+	<p id="hello">Hello and Welcome USERNAME!</p>
+	<p id="followers"> You have XX followers.</p>
+	<p id="following"> You follow YY users.</p>
+</body>
+
+
+</html>
